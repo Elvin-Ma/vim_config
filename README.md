@@ -29,6 +29,8 @@ filetype plugin indent on "加载vim自带和插件相应的语法和文件类�
 ## 1.3 安装插件
 - vim 指令打开vim
 - :PluginInstall
+- :PluginList # 列出已安装插件
+- :BundleUpdate # 更新插件
 
 ## 1.4 卸载插件
 - 在.vimrc 中删除对应行
@@ -56,3 +58,6 @@ let mapleader=";"
 # 3 参考文献
 [参考文献1](https://www.linuxmi.com/ubuntu-vim-8-2-python-ide.html)
 [参考文献2](https://learnku.com/articles/36344)
+[配置c++环境](https://www.zhihu.com/question/47691414/answer/373700711)
+[vim快捷键大全](https://vim.rtorr.com/lang/zh_cn)
+[vim tutorial](https://www.openvim.com/tutorial.html)
