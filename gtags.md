@@ -20,6 +20,8 @@ make -j16 && sudo make install
 ## 1.3 env variable set
 ```shell
 export GTAGSLABEL=pygments
+export $GTAGSLABEL = 'native-pygments'
+export $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 cp /usr/local/share/gtags/gtags.conf ~/.globalrc
 ```
 
