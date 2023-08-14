@@ -19,5 +19,15 @@
 - <C-P> : 预览结果
 ```
 
+## 结合 ripgrep 功能
+```shell
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+sudo dpkg -i ripgrep_13.0.0_amd64.deb
+```
+**vim 配置**
+```vim
+nmap <leader>F :Leaderf rg<CR>
+```
+
 ## 官方链接
 [LeaderF 官方仓库](https://github.com/Yggdroot/LeaderF)
