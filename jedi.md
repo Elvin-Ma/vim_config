@@ -2,6 +2,10 @@
 - 在.vimrc 中vundle begin and end 之间插入：
 ```python
 Pulgin 'davidhalter/jedi-vim'
+
+" jedi extension: g --> global variable
+let g:jedi#force_py_version = 3  " 使用 Python 3.x 解析器
+let g:jedi#python_path = '/home/mtn/miniconda3/bin/python'  " Python 解析器的路径
 ```
 - vim 打开文件
 ```python
@@ -28,7 +32,7 @@ let g:jedi#python_path = '/home/mtn/miniconda3/bin/python' #解释器路径设�
 
 # 3. 直接在vim中导入一个模块
 ```python
-:Pyimport os
+:Pyimport os # 在vim中打开这个模块
 ```
 
 # 4. vim自带的跳转指令
