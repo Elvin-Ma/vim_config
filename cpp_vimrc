@@ -27,6 +27,7 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'flazz/vim-colorschemes'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 call plug#end()
 

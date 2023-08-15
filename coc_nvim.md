@@ -9,6 +9,7 @@ git checkout v8.2.0108
 ./configure --prefix=$HOME/.local --enable-python3interp=yes
 make
 sudo make install
+ln -sf /usr/local/bin/vim /usr/bin/vim # run this is failed
 ```
 
 ## 1.1 安装node: ？ 14.14
@@ -56,6 +57,7 @@ export PATH=/mnt/gpfs/E00310/downloads/clangd_13.0.0/bin/clangd:$PATH
 git clone --depth=1 --recursive https://github.com/MaskRay/ccls
 cd ccls
 wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+# wget https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/clang+llvm-13.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
 tar xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
 cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
 cmake --build Release
@@ -63,8 +65,10 @@ cd Release
 sudo make install
 ```
 
-```vim
+```vim install and config
 :CocInstall coc-ccls
+cd ~/.config/coc/extensions/node_modules/coc-ccls
+ln -s node_modules/ws/lib lib
 ```
 
 ## 2.3 coc 常用命令
