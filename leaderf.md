@@ -108,8 +108,8 @@ let g:Lf_PreviewResult = {
 ```
 
 ## 参考文献
-[LeaderF 官方仓库](https://github.com/Yggdroot/LeaderF)
-[参考博文](https://retzzz.github.io/dc9af5aa/)
-[ripgrep 博文](https://www.cnblogs.com/niubidexiebiao/p/15828534.html)
-[ripgrep 中文文档](https://github.com/chinanf-boy/ripgrep-zh/blob/master/rg-0.10.0-h.zh.md)
-[Leaderf rg 配置](https://retzzz.github.io/dc9af5aa/)
+[LeaderF 官方仓库](https://github.com/Yggdroot/LeaderF) <br>
+[参考博文](https://retzzz.github.io/dc9af5aa/)<br>
+[ripgrep 博文](https://www.cnblogs.com/niubidexiebiao/p/15828534.html)<br>
+[ripgrep 中文文档](https://github.com/chinanf-boy/ripgrep-zh/blob/master/rg-0.10.0-h.zh.md)<br>
+[Leaderf rg 配置](https://retzzz.github.io/dc9af5aa/) <br>
