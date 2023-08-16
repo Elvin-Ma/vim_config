@@ -8,6 +8,7 @@ Plugin 'scrooloose/nerdtree' # vundle 插件管理器
 ```vim
 : NERDTree
 : help NERDTree # 帮助文档
+? # 打开帮文档、再次按关闭帮助文档
 ```
 
 # vimrc 常用配置
