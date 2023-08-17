@@ -67,6 +67,7 @@ sudo make install
 
 ```vim install and config
 :CocInstall coc-ccls
+# :CocInstall coc-clangd # 或者
 cd ~/.config/coc/extensions/node_modules/coc-ccls
 ln -s node_modules/ws/lib lib
 ```
