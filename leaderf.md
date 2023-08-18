@@ -47,6 +47,17 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 ### ripgrep 常用选项
 - w : 匹配整个字符串
 - i : 忽略大小写
+- F : 正常模式，不是正则表达式
+- e : 多个搜索模式设定
+- v : 反转匹配
+- n ：显示行号
+- l ：仅列出匹配文件
+- g ：要搜索的文件模式 (rg -g "*.txt" "search_pattern")
+- t ：限制要搜索的文件类型 (rg -t java "search_pattern")
+- --hidden ：需要搜索隐藏文件
+- --glob ： 指定要排除的文件模式
+
+
 
 **vim 配置**
 ```vim

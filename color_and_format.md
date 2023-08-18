@@ -10,6 +10,14 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " ./plugged/python-mode/ftplugin/python/pymode.vim
 if g:pymode_options_colorcolumn && exists('+colorcolumn')
       "setlocal colorcolumn=+1
+
+```
+
+**去除长度报警**
+``` shell
+cd /root/.vim/plugged/python-mode 
+grep -nr max_line_length .
+max_line_length = 128
 ```
   
 
