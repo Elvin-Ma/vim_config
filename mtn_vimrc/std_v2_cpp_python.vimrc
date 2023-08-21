@@ -33,9 +33,10 @@ Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Chiel92/vim-autoformat'
 "Plug 'sillybun/autoformatpythonstatement'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'python-mode/python-mode', {'for': 'python' , 'branch': 'develop'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mg979/vim-visual-multi'
+Plug 'vim-python/python-syntax'
 "Plug 'tmhedberg/SimpylFold'
 call plug#end()
 
