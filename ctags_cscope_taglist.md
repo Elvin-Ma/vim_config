@@ -80,6 +80,8 @@ F1 # 打开帮助文档
 ```shell
 cscope -Rbq # 生成索引文件
 cscope -bkq -i *.txt # 使用文件名生成 cscope 文件
+# 上述代码生成的是相对路径，打开文件时会出现文件找不到，采用下面方法解决
+find `pwd` -name *.cpp -o -name *.h -o -name *.hpp> cscope.files && cscope -Rbq
 # cscope 生成索引参数解释
 -R: 在生成索引文件时，搜索子目录树中的代码
 -b: 只生成索引文件，不进入cscope的界面
@@ -97,6 +99,7 @@ cscope -bkq -i *.txt # 使用文件名生成 cscope 文件
 : cs add cscope.out " 可以加载多个数据库文件
 : cs show # 查看加载的数据库文件
 : cs -h # 查看帮助文档
+: cs -f <querytype> tag
 ```
 
 **cscope querytype**<br>
