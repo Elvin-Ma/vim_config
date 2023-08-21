@@ -124,3 +124,4 @@ let g:Lf_PreviewResult = {
 [ripgrep 博文](https://www.cnblogs.com/niubidexiebiao/p/15828534.html)<br>
 [ripgrep 中文文档](https://github.com/chinanf-boy/ripgrep-zh/blob/master/rg-0.10.0-h.zh.md)<br>
 [Leaderf rg 配置](https://retzzz.github.io/dc9af5aa/) <br>
+[Leaderf 简单文档](https://blog.csdn.net/fqbqrr/article/details/117821247) <br>
