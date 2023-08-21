@@ -67,11 +67,9 @@ nmap <unique> <leader>wa <Plug>LeaderfRgCwordLiteralNoBoundary
 nmap <unique> <leader>wb <Plug>LeaderfRgCwordLiteralBoundary
 nmap <unique> <leader>wc <Plug>LeaderfRgCwordRegexNoBoundary
 nmap <unique> <leader>wd <Plug>LeaderfRgCwordRegexBoundary
-" alt + b, noremap--> only use for this command
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
-
 
 " ================ ctags+taglist+cscope =====================
 let g:Tlist_Use_Right_Window = 1
