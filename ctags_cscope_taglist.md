@@ -29,10 +29,10 @@ filetype plugin on " 启用vim编译器的插件--> 不装好像也没啥事
 let g:Tlist_Use_Right_Window = 1 " 窗口在右侧显示
 nnoremap <F8> : TlistOpen<CR> " TlistOpen 快捷键
 " quick key to updata ctags
-nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR> 
+nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
 ```
 
-# 3 install cscope 
+# 3 install cscope
 ```shell
 sudo apt-get install cscope
 ```
@@ -53,7 +53,7 @@ vim -t tag *.cpp # 打开文件并定位到tag位置
 ** 访问第三方库的函数**
 ```vimrc
 # 在 ~/.vim/systags 下生成系统头文件的tag
-ctags --fields=+iaS --extra=+q -R -f ~/.vim/systags /usr/include /usr/local/include 
+ctags --fields=+iaS --extra=+q -R -f ~/.vim/systags /usr/include /usr/local/include
 set tags+=~/.vim/systags # 将上述文件加到vimrc 中
 set tags=tags;
 set tags=./tags;,tags # 当前文件所在文件夹 + 当前文件夹
@@ -66,7 +66,7 @@ set tags+=~/program/tags ” add new tags file
 ## 4.2 taglist guide
 ```vim
 :TlistOpen # 打开标签列表窗口
-q # 退出taglist 
+q # 退出taglist
 p # tag 定义预览
 [[ # 走到taglist 中前一个文件
 ]] # 走到taglist 中后一个文件
@@ -94,9 +94,21 @@ cscope -bkq -i *.txt # 使用文件名生成 cscope 文件
 
 **加载cscope 索引**
 ```vim
-: cs add cscope.out
+: cs add cscope.out " 可以加载多个数据库文件
+: cs show # 查看加载的数据库文件
 : cs -h # 查看帮助文档
 ```
+
+**cscope querytype**
+| 数字 | 查询类型 | 描述|
+| 0    | s        | C符号出现过的地方|
+| 1    | g        | 定义的地方 |
+| 2    | d        | 被这个函数调用的函数列表|
+| 3    | c        | 调用这个函数的函数列表|
+| 4    | t        | 搜索字符串|
+| 5    | e        | egrep 匹配|
+| 6    | f        | 搜索文件|
+| 7    | i        | 包含这个文件的文件列表|
 
 ## 4.3 生成tag cscope的快捷键设置
 ```python
@@ -104,6 +116,41 @@ cscope -bkq -i *.txt # 使用文件名生成 cscope 文件
 nmap <C-@> :!find -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > FileList.txt<CR>
                        \ :!ctags -L -< FileList.txt<CR>
                        \ :!cscope -bkq -i FileList.txt<CR>
+```
+
+## 4.4 cscope 自动生成配置
+```python
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=0
+    set cst
+    set nocsverb
+    " 添加数据库，但不添加同名但不在当前目录中的数据库
+    " （比如在另一个窗口中运行 'cscope -d'）
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+    if filereadable("cscope.out")
+        cs add cscope.out
+        " 来自 cscope 向导的 'cs add cscope.out'
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+        " 来自 cscope 向导的 'cs add $CSCOPE_DB'
+    else
+        " 寻找包含 'cscope.out' 的目录，从当前目录开始
+        let s:root_dir = expand("%:p:h")
+        while s:root_dir != '/' && !filereadable(s:root_dir . "/cscope.out")
+            let s:root_dir = fnamemodify(s:root_dir, ':h')
+        endwhile
+        if filereadable(s:root_dir . "/cscope.out")
+            cs add s:root_dir . "/cscope.out"
+        endif
+    endif
+endif
+
+# 首先检查是否存在 cscope 功能。
+# 如果当前目录下有一个 cscope.out 文件，那么就添加它。
+# 如果没有，但是环境变量 CSCOPE_DB 被设置了，那么就添加这个
+# export CSCOPE_DB=/path/to/cscope.out(其它文件夹的cscope，优先级第二)
+# 如果都没有，那么就向上查找包含 cscope.out 文件的目录，并添加它。
 ```
 
 # 5 参考文档
