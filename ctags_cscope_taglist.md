@@ -1,4 +1,5 @@
 # 1 install ctags and cscope
+**install from apt**
 ```python
 sudo apt-get install ctags
 sudo apt-get install cscope
@@ -25,11 +26,15 @@ unzip taglist.zip
 **.vimrc**
 ```vimrc
 filetype plugin on " 启用vim编译器的插件--> 不装好像也没啥事
+let g:Tlist_Use_Right_Window = 1 " 窗口在右侧显示
+nnoremap <F8> : TlistOpen<CR> " TlistOpen 快捷键
+" quick key to updata ctags
+nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR> 
 ```
 
 # 3 install cscope 
 ```shell
-sudo apt-get insall cscope
+sudo apt-get install cscope
 ```
 
 # 4 user guide
@@ -41,8 +46,22 @@ ctags -L *.txt # 采用指定文件生成ctags
 <Ctrl - ]> # 从函数调用 --> 函数定义
 <Ctrl - t> # 从函数定义 --> 函数调用
 <Ctrl - n> # 打开函数补全功能
-
+ctags --help # shell 打开帮助文档
+:help ctags # vim 中打开帮助文档
+vim -t tag *.cpp # 打开文件并定位到tag位置
 ```
+** 访问第三方库的函数**
+```vimrc
+# 在 ~/.vim/systags 下生成系统头文件的tag
+ctags --fields=+iaS --extra=+q -R -f ~/.vim/systags /usr/include /usr/local/include 
+set tags+=~/.vim/systags # 将上述文件加到vimrc 中
+set tags=tags;
+set tags=./tags;,tags # 当前文件所在文件夹 + 当前文件夹
+set autochdir # 自动向上查找
+set tags+=./tags; # add current directory’s generated tags file
+set tags+=~/program/tags ” add new tags file
+```
+
 
 ## 4.2 taglist guide
 ```vim
@@ -54,6 +73,7 @@ p # tag 定义预览
 <space> # 在下方显示函数签名
 o # 在新窗口中打开当前文件
 F1 # 打开帮助文档
+:TlistUpdate # 手动生成ctags 文件
 ```
 ## 4.3 cscope guide
 **生成索引文件**
