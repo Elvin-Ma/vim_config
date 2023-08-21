@@ -99,7 +99,7 @@ cscope -bkq -i *.txt # 使用文件名生成 cscope 文件
 : cs -h # 查看帮助文档
 ```
 
-**cscope querytype**
+**cscope querytype**<br>
 | 数字 | 查询类型 | 描述|
 | 0    | s        | C符号出现过的地方|
 | 1    | g        | 定义的地方 |
