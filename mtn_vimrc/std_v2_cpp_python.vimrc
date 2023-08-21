@@ -7,9 +7,12 @@ set showmode
 set cursorline
 set nocompatible
 set colorcolumn=0
+set nu
 
 let mapleader=";"
 let g:python3_host_prog = '/usr/bin/python3'
+set hlsearch
+highlight search term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
 
 " window size ctrl
 nmap <C-j> <C-W>+
@@ -29,7 +32,7 @@ Plug 'preservim/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Chiel92/vim-autoformat'
-Plug 'sillybun/autoformatpythonstatement'
+"Plug 'sillybun/autoformatpythonstatement'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mg979/vim-visual-multi'
@@ -45,7 +48,7 @@ map <leader>t :NERDTreeToggle<CR>
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-nn <leader>[ :exec("NERDTree ".expand('%:h'))<CR>
+"nn <leader>[ :exec("NERDTree ".expand('%:h'))<CR>
 autocmd VimEnter * NERDTree
 wincmd w
 autocmd VimEnter * wincmd w
@@ -53,96 +56,96 @@ map <leader><space> :FixWhitespace<cr>
 
 "================== coc.nvim  ==========
 " coc extensions
-let g:coc_global_extensions = [
-      \ 'coc-json',
-      \ 'coc-tsserver',
-      \ 'coc-cmake',
-      \ ]
-
-set signcolumn=number
-" <TAB> to select candidate forward or
-" pump completion candidate
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-" <s-TAB> to select candidate backward
-inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.')-1
-  return !col || getline('.')[col - 1] =~# '\s'
-endfunction
-
-" <CR> to comfirm selected candidate
-" only when there's selected complete item
-if exists('*complete_info')
-  inoremap <silent><expr> <CR> complete_info(['selected'])['selected'] != -1 ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if(index(['vim', 'help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" highlight link CocHighlightText Visual
-" autocmd CursorHold * silent call CocActionAsync('highlight')   " TODO
-
-" nmap <leader>rn <Plug>(coc-rename)
-" xmap <leader>f <Plug>(coc-format-selected)
-command! -nargs=0 Format :call CocAction('format')
-
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" diagnostic info
-nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<CR>
-nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
-nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
-nmap <LEADER>qf <Plug>(coc-fix-current)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" statusline support
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}  "TODO
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-function! s:generate_compile_commands()
-  if empty(glob('CMakeLists.txt'))
-    echo "Can't find CMakeLists.txt"
-    return
-  endif
-  if empty(glob('.vscode'))
-    execute 'silent !mkdir .vscode'
-  endif
-  execute '!cmake -DCMAKE_BUILD_TYPE=debug
-      \ -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B .vscode'
-endfunction
-command! -nargs=0 Gcmake :call s:generate_compile_commands()
-
-let g:coc_compile_commands = '/root/projects/br_pytorch/build/Debug/compile_commands.json'
+"let g:coc_global_extensions = [
+"      \ 'coc-json',
+"      \ 'coc-tsserver',
+"      \ 'coc-cmake',
+"      \ ]
+"
+"set signcolumn=number
+"" <TAB> to select candidate forward or
+"" pump completion candidate
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? "\<C-n>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
+"" <s-TAB> to select candidate backward
+"inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"function! s:check_back_space() abort
+"  let col = col('.')-1
+"  return !col || getline('.')[col - 1] =~# '\s'
+"endfunction
+"
+"" <CR> to comfirm selected candidate
+"" only when there's selected complete item
+"if exists('*complete_info')
+"  inoremap <silent><expr> <CR> complete_info(['selected'])['selected'] != -1 ? "\<C-y>" : "\<C-g>u\<CR>"
+"endif
+"
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"function! s:show_documentation()
+"  if(index(['vim', 'help'], &filetype) >= 0)
+"    execute 'h '.expand('<cword>')
+"  elseif (coc#rpc#ready())
+"    call CocActionAsync('doHover')
+"  else
+"    execute '!' . &keywordprg . " " . expand('<cword>')
+"  endif
+"endfunction
+"
+"" highlight link CocHighlightText Visual
+"" autocmd CursorHold * silent call CocActionAsync('highlight')   " TODO
+"
+"" nmap <leader>rn <Plug>(coc-rename)
+"" xmap <leader>f <Plug>(coc-format-selected)
+"command! -nargs=0 Format :call CocAction('format')
+"
+"augroup mygroup
+"  autocmd!
+"  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"augroup end
+"
+"" diagnostic info
+"nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<CR>
+"nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
+"nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
+"nmap <LEADER>qf <Plug>(coc-fix-current)
+"
+"" Remap <C-f> and <C-b> for scroll float windows/popups.
+"if has('nvim-0.4.0') || has('patch-8.2.0750')
+"  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : "\<Right>"
+"  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<Left>"
+"  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"endif
+"
+"" statusline support
+"" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}  "TODO
+"
+"" GoTo code navigation.
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
+"
+"function! s:generate_compile_commands()
+"  if empty(glob('CMakeLists.txt'))
+"    echo "Can't find CMakeLists.txt"
+"    return
+"  endif
+"  if empty(glob('.vscode'))
+"    execute 'silent !mkdir .vscode'
+"  endif
+"  execute '!cmake -DCMAKE_BUILD_TYPE=debug
+"      \ -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B .vscode'
+"endfunction
+"command! -nargs=0 Gcmake :call s:generate_compile_commands()
+"
+"let g:coc_compile_commands = '/root/projects/br_pytorch/build/Debug/compile_commands.json'
 
 " ==== useless now: jackguo380/vim-lsp-cxx-highlight ====
 " hi default link LspCxxHlSymFunction cxxFunction
@@ -163,8 +166,13 @@ let g:coc_compile_commands = '/root/projects/br_pytorch/build/Debug/compile_comm
 
 " ====================   Leaderf  ================
 "let g:Lf_WindowPosition = 'popup'
-"let g:Lf_WorkingDirectoryMode='AF'
+let g:Lf_WorkingDirectoryMode='AF'
 let g:Lf_RootMarkers = ['.git', '.svn', '.hg', '.project', '.root']
+let g:Lf_WildIgnore= {
+    \ 'dir':['.svn', '.git', '.cache', '.gitIgnore'],
+    \ 'file': ['*.idx', '*.so', '*.o', '.bak']
+    \ }
+" let g:Lf_DefaultSearchDir = system('git rev-parse --show-toplevel 2>/dev/null') " find from project other than file path
 let g:Lf_DefaultExternalTool='rg'
 let g:Lf_ShortcutF = '<c-p>'
 " let g:Lf_ShortcutB = '<c-l>'
@@ -184,17 +192,21 @@ noremap <leader>fl :<C-U><C-R>=printf("Leaderf! line %s", "")<CR><CR>
 " ====================  ripgrep set ==============
 " find word for self defined
 " nmap <leader>F :Leaderf rg<CR>
-noremap <leader>f :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+nmap <unique> <leader>f <Plug>LeaderfRgPrompt
 noremap <leader>b :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-nmap <unique> <leader>wf <Plug>LeaderfRgPrompt
-nmap <unique> <leader>wa <Plug>LeaderfRgCwordLiteralNoBoundary
-nmap <unique> <leader>wb <Plug>LeaderfRgCwordLiteralBoundary
-nmap <unique> <leader>wc <Plug>LeaderfRgCwordRegexNoBoundary
-nmap <unique> <leader>wd <Plug>LeaderfRgCwordRegexBoundary
+noremap <leader>wf :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>wa :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", expand("<cword>"))<CR>
+noremap <leader>wb :<C-U><C-R>=printf("Leaderf! rg -F -w -e %s ", expand("<cword>"))<CR>
+noremap <leader>wc :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>wd :<C-U><C-R>=printf("Leaderf! rg -w -e %s ", expand("<cword>"))<CR> " 正则
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR> " 上一次的查询结果
+"nmap <unique> <leader>wa <Plug>LeaderfRgCwordLiteralNoBoundary
+"nmap <unique> <leader>wb <Plug>LeaderfRgCwordLiteralBoundary
+"nmap <unique> <leader>wc <Plug>LeaderfRgCwordRegexNoBoundary
+"nmap <unique> <leader>wd <Plug>LeaderfRgCwordRegexBoundary
 " alt + b, noremap--> only use for this command
 " search visually selected text literally
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " ======================== color =============
 " colorscheme codedark
@@ -309,3 +321,23 @@ nmap <leader>ce :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>cf :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <leader>ci :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <leader>cd :cs find d <C-R>=expand("<cword>")<CR><CR>
+hi search term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
+
+" ======================= Auto format ================
+let g:autoformat_autoindent = 1
+let g:autoformat_retab = 1
+let g:autoformat_remove_trailing_spaces = 1
+
+" 针对特定文件类型配置格式化工具
+let g:autoformat_c_cpp_clangformat = 'clang-format'
+
+
+" =================== window cut ===============
+noremap <Leader>g1 :call win_gotoid(win_getid(1))<CR>
+noremap <Leader>g2 :call win_gotoid(win_getid(2))<CR>
+noremap <Leader>g3 :call win_gotoid(win_getid(3))<CR>
+noremap <Leader>g4 :call win_gotoid(win_getid(4))<CR>
+noremap <Leader>g5 :call win_gotoid(win_getid(5))<CR>
+noremap <Leader>g6 :call win_gotoid(win_getid(6))<CR>
+noremap <Leader>g7 :call win_gotoid(win_getid(7))<CR>
+noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
