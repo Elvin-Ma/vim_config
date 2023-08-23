@@ -18,9 +18,9 @@ wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_
 unzip download
 ctags --fields=+iaS --extra=+q -R -f ~/.vim/tags /usr/include /usr/local/include
 
-echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp> cscope.files && cscope -Rbq'" >> ~/.bashrc
+echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp > cscope.files && cscope -Rbq'" >> ~/.bashrc
 echo "alias ct_get='ctags -R .'" >> ~/.bashrc
-echo "alias cc_get='ctags -R && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp cscope.files && cscope -Rbq'" >> ~/.bashrc
+echo "alias cc_get='ctags -R && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp > cscope.files && cscope -Rbq'" >> ~/.bashrc
 
 # install ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
