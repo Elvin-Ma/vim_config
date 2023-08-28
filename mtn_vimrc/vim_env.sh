@@ -1,14 +1,17 @@
 #!/bin/bash
 cd && mkdir -p .vim && cd .vim
 
-# install vim 8.2
-git clone git@github.com:vim/vim.git
-cd vim
-git checkout v8.2.0108
-#./configure --prefix=$HOME/.local --enable-python3interp=yes
-./configure --enable-python3interp=yes
-make -j16
-sudo make install
+# install vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# install vim 8.2(optional)
+#git clone git@github.com:vim/vim.git
+#cd vim
+#git checkout v8.2.0108
+##./configure --prefix=$HOME/.local --enable-python3interp=yes
+#./configure --enable-python3interp=yes
+#make -j16
+#sudo make install
 
 
 # ctags + taglist + cscope prepare
