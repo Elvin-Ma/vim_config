@@ -50,11 +50,11 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 - --exclude=<pattern>: 排除匹配某个模式的文件或目录，通常用于避免生成不必要的标签。
 - --output-format=<format>: 指定输出格式，可以是 compact、exuberant 等，控制生成标签文件的格式。
 - --fields=<field>: 用于选择或排除某些字段，如前面提到的 i、a、S 等。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i 表示如果有继承，要标明父类；
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a 表示如果是类的成员，要标明其access属性（即是public的还是private的）；
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; S 表示如果是函数，要标明函数的signature；
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; K 表示要显示语法元素类型的全称；
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z 表示在显示语法元素的类型时，使用格式kind:type。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i 表示如果有继承，要标明父类；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a 表示如果是类的成员，要标明其access属性（即是public的还是private的）；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; S 表示如果是函数，要标明函数的signature；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; K 表示要显示语法元素类型的全称；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z 表示在显示语法元素的类型时，使用格式kind:type。<br>
 - --extra=<field>: 用于选择额外的描述信息，比如类名加函数名。
 - --verbose: 在生成标签时显示更多的信息，在调试时非常有用。
 - --sort: 选择标签的排序方式，可以选择 0（不排序）、1（按字母排序）等。
