@@ -22,13 +22,13 @@ sudo apt-get install -y exuberant-ctags
 sudo apt-get install cscope
 wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_46.zip/download
 unzip download
-ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build -f ~/.vim/tags /usr/include /usr/local/include
+ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
 # 在当前目录下上次cscope 和 ctags
 #echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v 'build/'> cscope.files && cscope -Rbq'" >> ~/.bashrc
 echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
-echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build'" >> ~/.bashrc
-echo "alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
+echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build .'" >> ~/.bashrc
+echo "alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build . && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
 echo "alias cc_del='rm -rf cscope.*; rm tags'"
 
 # install ripgrep
@@ -73,9 +73,40 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 - 命令 ：set tags=./tags, ../tags --> 设置多个tags, 会覆盖之前的tags
 - 命令 ：set tag? --> 查看之前设置的tags
 
-# 2.2 cscope 配置
+# 2.3 cscope 配置
+- 查看帮助文件
+  cscope -h
 
+- 命令启动格式
+```shell
+cscope [-bcCdehklLqRTuUvV] [-f file] [-F file] [-i file] [-I dir] [-s dir]
+              [-p number] [-P path] [-[0-8] pattern] [source files]
+```
 
+- -b: 仅构建交叉引用(对代码中的符号（如函数、变量、类等）的引用关系进行分析和记录的过程);
+- -C: 在搜索时忽略字母大小写;
+- -c: 在交叉引用文件中仅使用 ASCII 字符（不压缩）;
+- -d: 不更新交叉引用;
+- -e: 在文件之间抑制 <Ctrl>-e 命令提示符;
+- -F symfile: 从 symfile 中读取符号引用行;
+- -f reffile: 使用 reffile 作为交叉引用文件名，而不是 cscope.out;
+- -h: 显示帮助屏幕;
+- -I incdir: 在 incdir 中查找任何 #include 文件;
+- -i namefile: 浏览 namefile 中列出的文件，而不是 cscope.files;
+- -k: 内核模式 - 不使用 /usr/include 作为 #include 文件;
+- -L: 进行单次搜索并输出行导向结果;
+- -l: 行导向界面;
+- -num pattern: 转到输入字段 num（从 0 开始计数）并查找模式;
+- -P path: 将路径添加到预构建交叉引用文件中的相对文件名;
+- -p n: 显示最后 n 个文件路径组件;
+- -q: 为快速符号搜索构建反向索引;
+- -R: 递归目录以查找文件;
+- -s dir: 在 dir 中查找额外的源文件;
+- -T: 仅使用前八个字符匹配 C 符号;
+- -U: 检查文件时间戳;
+- -u: 无条件构建交叉引用文件;
+- -v: 在行模式下提供更多详细信息;
+- -V: 打印版本号;
 
 # 3 vim 内置跳转快捷键
 - gd # 在当前缓存区内跳转到光标所在标识符的定义位置
@@ -94,3 +125,4 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 - [配置c++环境](https://www.zhihu.com/question/47691414/answer/373700711)
 - [vim快捷键大全](https://vim.rtorr.com/lang/zh_cn)
 - [vim tutorial](https://www.openvim.com/tutorial.html)
+- [cscope 配置](https://cscope.sourceforge.net/cscope_maps.vim)
