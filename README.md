@@ -24,14 +24,7 @@ wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_
 unzip download
 ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
-pip install jedi
-
-# 在 ~/.bashrc 中配置 cscope 和 ctags
-#echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
-#echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build .'" >> ~/.bashrc
-#echo "alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build . && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
-#alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ > cscope.files && cscope -Rbq'
-#alias cc_del='rm -rf cscope.*; rm tags'
+pip install jedi # install vim-jedi for python
 
 # install ripgrep
 # curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
