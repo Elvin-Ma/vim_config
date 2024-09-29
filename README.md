@@ -24,19 +24,63 @@ wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_
 unzip download
 ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
-# 在当前目录下上次cscope 和 ctags
-#echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v 'build/'> cscope.files && cscope -Rbq'" >> ~/.bashrc
-echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
-echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build .'" >> ~/.bashrc
-echo "alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build . && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
-echo "alias cc_del='rm -rf cscope.*; rm tags'"
+# 在 ~/.bashrc 中配置 cscope 和 ctags
+#echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
+#echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build .'" >> ~/.bashrc
+#echo "alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build . && find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
+#alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ > cscope.files && cscope -Rbq'
+#alias cc_del='rm -rf cscope.*; rm tags'
 
 # install ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
 sudo dpkg -i ripgrep_13.0.0_amd64.deb
 ```
 
-# 1 vim-Plug 常用操作
+# 1 ctags 和 cscope 生成
+- 生成标准库里的ctags
+```shell
+ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
+```
+*注释：tags 用-f 指定生成路径，而具体的文件路径要用绝对路径，否则会找不到* <br>
+
+- 快捷的生成方式
+```shell
+alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ > cscope.files && cscope -Rbq'
+alias cc_del='rm -rf cscope.*; rm tags'
+```
+*注释：以上两条可以加到~/.bashrc 里，用以快速生成cscope 和 ctags，注意用 `pwd` 获取绝对路径，这样生成的文件经过copy后照样可以使用* <br>
+
+- 指定CSCOPE_DB 和 CTAGS_DB 环境变量
+*注释：.vimrc 里规定了使用环境变量来查找ctags 和 cscope，我们可以通过这两个环境变量快捷加载相关数据文件* <br>
+*注意：cscope 路径不需要指定到cscope.out 文件，但ctags的路径需要制定到具体的tags文件* <br>
+
+- 可以将cscope 和 ctags 安装项目放到 ~/.vim/projects 里，方便查找
+
+# 2 常用指令
+- 文件内查找并替换
+```
+: %s/old_token/new_token/gc
+```
+- 全局查找并替换(一定要用l: 只显示文件名，n 会加行号)
+```shell
+grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
+```
+- 查看代码作者(git-blame 插件)
+```shell
+; + s
+```
+- vim 常用跳转指令
+```shell
+- gd # 在当前缓存区内跳转到光标所在标识符的定义位置
+- ctrl + o # 返回上一个光标的位置
+- ctrl + i # 前进到下一个光标的位置
+- ctrl + T # 返回上一个跳转的位置
+- ctrl + [ / ] # 尝试跳转到标识符的定义位置
+- ：jumps # 显示跳转列表，按下相应变化即可跳转
+- "*" # 跳转到下个单词
+- "#" # 跳转到上个单词
+
+# 3 vim-Plug 常用操作
 ```shell
 :PlugInstall to install the plugins
 :PlugUpdate to install or update the plugins
@@ -44,8 +88,8 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 :PlugClean to remove plugins no longer in the list
 ```
 
-# 2 ctags 和 cscope 常用配置 
-## 2.1 ctags 参数配置
+# 4 ctags 和 cscope 常用配置 
+## 4.1 ctags 参数配置
 - --languages=<language>: 指定要生成标签的编程语言，可以是特定语言（如 C、C++、Python 等）或使用 --exclude 排除特定语言。
 - --exclude=<pattern>: 排除匹配某个模式的文件或目录，通常用于避免生成不必要的标签。
 - --output-format=<format>: 指定输出格式，可以是 compact、exuberant 等，控制生成标签文件的格式。
@@ -63,7 +107,7 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 - -R: 递归地处理目录，适合处理大型项目。
 - --c++-kinds=+p : 生成的标签文件将包含 C++ 中的类原型信息，便于开发者理解和使用类的方法
 
-## 2.2 ctags 命令和快捷键
+## 4.2 ctags 命令和快捷键
 - 命令 ：tag tagname --> 跳转到tagname的定义处，即使它在另一个文件中;
 - 命令 ：tags --> 列出层访问过的tag的列表
 - 快捷键 Ctrl+] --> 取出当前光标下的单词作为tag进行跳转
@@ -73,7 +117,7 @@ sudo dpkg -i ripgrep_13.0.0_amd64.deb
 - 命令 ：set tags=./tags, ../tags --> 设置多个tags, 会覆盖之前的tags
 - 命令 ：set tag? --> 查看之前设置的tags
 
-# 2.3 cscope 配置
+# 4.3 cscope 配置
 - 查看帮助文件
   cscope -h
 
@@ -108,7 +152,7 @@ cscope [-bcCdehklLqRTuUvV] [-f file] [-F file] [-i file] [-I dir] [-s dir]
 - -v: 在行模式下提供更多详细信息;
 - -V: 打印版本号;
 
-## 2.4 cscope 常见指令
+## 4.4 cscope 常见指令
 - 's'   symbol: find all references to the token under cursor (查找函数名、宏、枚举值等出现的地方)
 - 'g'   global: find global definition(s) of the token under cursor (查找函数、宏、枚举等定义的位置，类似ctags所提供的功能)
 - 'c'   calls:  find all calls to the function name under cursor (查找调用本函数的函数)
@@ -123,22 +167,172 @@ cscope [-bcCdehklLqRTuUvV] [-f file] [-F file] [-i file] [-I dir] [-s dir]
 命令 : cs find g name
 ```
 
-# 3 vim 内置跳转快捷键
-- gd # 在当前缓存区内跳转到光标所在标识符的定义位置
-- ctrl + o # 返回上一个光标的位置
-- ctrl + i # 前进到下一个光标的位置
-- ctrl + T # 返回上一个跳转的位置
-- ctrl + [ / ] # 尝试跳转到标识符的定义位置
-- ：jumps # 显示跳转列表，按下相应变化即可跳转
-- "*" # 跳转到下个单词
-- "#" # 跳转到上个单词
-
-# 4 标准vimrc 配置
+# 5 标准vimrc 配置
 ```vimrc
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set smartindent
+set autoindent
+set showmode
+set cursorline
+set nocompatible
+set colorcolumn=0
+set backspace=indent,eol,start
+set encoding=utf-8
+set nu
+set updatetime=200
+set list " set nolist to disable
+set listchars=space:· "空格以点来显示
+
+let mapleader=";"
+let g:python3_host_prog = '/usr/bin/python3'
+set hlsearch
+highlight search term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
+
+" window size ctrl
+nmap <C-j> <C-W>+
+nmap <C-k> <C-W>-
+nmap <C-h> <C-W><
+nmap <C-l> <C-W>>
+
+" plugged ______________
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline' "增强 Vim 状态栏的外观和功能
+Plug 'Yggdroot/LeaderF'
+Plug 'bfrg/vim-cpp-modern' "c++ 函数名等会有颜色
+Plug 'zivyangll/git-blame.vim'
+Plug 'jiangmiao/auto-pairs' "括号自动补全
+"Plug 'dense-analysis/ale' "语法检测 --> 会误报
+Plug 'azabiong/vim-highlighter'
+call plug#end()
+
+autocmd FileType python let g:autoformatpython_enabled = 1
+
+" ================== nerdtree ===========
+map <leader>t :NERDTreeToggle<CR>
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+"nn <leader>[ :exec("NERDTree ".expand('%:h'))<CR>
+autocmd VimEnter * NERDTree
+wincmd w
+autocmd VimEnter * wincmd w
+map <leader><space> :FixWhitespace<cr>
+
+" ====================   Leaderf  ================
+"let g:Lf_WindowPosition = 'popup'
+let g:Lf_WorkingDirectoryMode='AF'
+let g:Lf_RootMarkers = ['.git', '.svn', '.hg', '.project', '.root']
+" 搜索时候排除如下
+let g:Lf_WildIgnore={
+    \ 'dir':['.svn', '.git', '.cache', '.gitIgnore', 'tags'],
+    \ 'file':['*.idx', '*.so', '*.o', '.bak']
+    \}
+let g:Lf_UseVersionControlTool=1 "这个是默认选项, 可以不写
+let g:Lf_DefaultSearchDir = system('git rev-parse --show-toplevel 2>/dev/null') " find from project other than file path
+let g:Lf_DefaultExternalTool='rg'
+let g:Lf_ShortcutF = '<c-p>'
+" let g:Lf_ShortcutB = '<c-l>'
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf! buffer %s", "")<CR><CR>
+" file opend recently
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf! bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf! line %s", "")<CR><CR>
+noremap <leader>ff :<C-U><C-R>=printf("Leaderf! function %s", "")<CR><CR>
+noremap <leader>fw :<C-U><C-R>=printf("Leaderf! window  %s", "")<CR><CR>
+"noremap <leader>ff :<C-U><C-R>=printf("Leaderf! file  %s", "")<CR><CR>
+"noremap <leader>f :LeaderfSelf<cr>
+"noremap <leader>fm :LeaderfMru<cr>
+"noremap <leader>ff :LeaderfFunction<cr>
+"noremap <leader>fb :LeaderfBufTagAll<cr>
+"noremap <leader>ft :LeaderfBufTag<cr>
+"noremap <leader>fl :LeaderfLine<cr>
+"noremap <leader>fw :LeaderfWindow<cr>
+
+" ====================  ripgrep set ==============
+" find word for self defined
+" nmap <leader>F :Leaderf rg<CR>
+nmap <unique> <leader>f <Plug>LeaderfRgPrompt
+noremap <leader>b :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <leader>wf :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>wa :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", expand("<cword>"))<CR>
+noremap <leader>wb :<C-U><C-R>=printf("Leaderf! rg -F -w -e %s ", expand("<cword>"))<CR>
+noremap <leader>wc :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>wd :<C-U><C-R>=printf("Leaderf! rg -w -e %s ", expand("<cword>"))<CR> " ____
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR> " ________________
+"nmap <unique> <leader>wa <Plug>LeaderfRgCwordLiteralNoBoundary
+"nmap <unique> <leader>wb <Plug>LeaderfRgCwordLiteralBoundary
+"nmap <unique> <leader>wc <Plug>LeaderfRgCwordRegexNoBoundary
+"nmap <unique> <leader>wd <Plug>LeaderfRgCwordRegexBoundary
+" alt + b, noremap--> only use for this command
+" search visually selected text literally
+
+
+" ================ ctags+taglist+cscope =====================
+let g:Tlist_Use_Right_Window = 1
+nnoremap <F8> : TlistOpen<CR>
+nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
+set tags=./tags;,tags "可以不在当前tag路径下运行
+set autochdir
+set tags +=/root/.vim/tags
+set tags +=/usr/local/lib/python3.8/dist-packages/tags
+if $CTAGS_DB != ""
+    set tags+=$CTAGS_DB
+endif
+
+if has("cscope")
+  set csprg=/usr/bin/cscope
+  set csto=0 "先查cscope 再查 ctags
+  set cst
+  set nocsverb
+  set cscopetag
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  " else add database pointed to by environment
+  elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+  endif
+  set csverb
+  set cscopeverbose " show msg when any other cscope db added
+endif
+
+noremap <leader>cs :cs find s <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>cg :s find g <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>cc :cs find c <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>ct :cs find t <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>ce :cs find e <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>cf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+noremap <leader>ci :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+noremap <leader>cd :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" ======================= Auto format ================
+let g:autoformat_autoindent = 1
+let g:autoformat_retab = 1
+let g:autoformat_remove_trailing_spaces = 1
+let g:autoformat_c_cpp_clangformat = 'clang-format'
+
+" =================== window cut ===============
+noremap <Leader>g1 :call win_gotoid(win_getid(1))<CR>
+noremap <Leader>g2 :call win_gotoid(win_getid(2))<CR>
+noremap <Leader>g3 :call win_gotoid(win_getid(3))<CR>
+noremap <Leader>g4 :call win_gotoid(win_getid(4))<CR>
+noremap <Leader>g5 :call win_gotoid(win_getid(5))<CR>
+noremap <Leader>g6 :call win_gotoid(win_getid(6))<CR>
+noremap <Leader>g7 :call win_gotoid(win_getid(7))<CR>
+noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
+
+" ==================== git blame ===========
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 ```
 
-# 4 参考文献
+# 6 参考文献
 - [参考文献1](https://www.linuxmi.com/ubuntu-vim-8-2-python-ide.html)
 - [参考文献2](https://learnku.com/articles/36344)
 - [配置c++环境](https://www.zhihu.com/question/47691414/answer/373700711)
