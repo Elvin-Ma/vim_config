@@ -108,6 +108,21 @@ cscope [-bcCdehklLqRTuUvV] [-f file] [-F file] [-i file] [-I dir] [-s dir]
 - -v: 在行模式下提供更多详细信息;
 - -V: 打印版本号;
 
+## 2.4 cscope 常见指令
+- 's'   symbol: find all references to the token under cursor (查找函数名、宏、枚举值等出现的地方)
+- 'g'   global: find global definition(s) of the token under cursor (查找函数、宏、枚举等定义的位置，类似ctags所提供的功能)
+- 'c'   calls:  find all calls to the function name under cursor (查找调用本函数的函数)
+- 't'   text:   find all instances of the text under cursor (查找指定的字符串)
+- 'e'   egrep:  egrep search for the word under cursor (安装egrep 查找token，但查找速度快)
+- 'f'   file:   open the filename under cursor (查找并打开文件)
+- 'i'   includes: find files that include the filename under cursor (查找包含文件名的文件)
+- 'd'   called: find functions that function under cursor calls
+
+**使用方式**<br>
+```shell
+命令 : cs find g name
+```
+
 # 3 vim 内置跳转快捷键
 - gd # 在当前缓存区内跳转到光标所在标识符的定义位置
 - ctrl + o # 返回上一个光标的位置
@@ -118,6 +133,10 @@ cscope [-bcCdehklLqRTuUvV] [-f file] [-F file] [-i file] [-I dir] [-s dir]
 - "*" # 跳转到下个单词
 - "#" # 跳转到上个单词
 
+# 4 标准vimrc 配置
+```vimrc
+
+```
 
 # 4 参考文献
 - [参考文献1](https://www.linuxmi.com/ubuntu-vim-8-2-python-ide.html)
