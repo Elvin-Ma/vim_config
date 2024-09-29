@@ -24,6 +24,8 @@ wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_
 unzip download
 ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
+pip install jedi
+
 # 在 ~/.bashrc 中配置 cscope 和 ctags
 #echo "alias cs_get='find `pwd` -name *.cpp -o -name *.h -o -name *.hpp -o -name *.py | grep -v /build/ | cscope -Rbq'" >> ~/.bashrc
 #echo "alias ct_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build .'" >> ~/.bashrc
@@ -32,8 +34,8 @@ ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /
 #alias cc_del='rm -rf cscope.*; rm tags'
 
 # install ripgrep
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
-sudo dpkg -i ripgrep_13.0.0_amd64.deb
+# curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+# sudo dpkg -i ripgrep_13.0.0_amd64.deb
 ```
 
 # 1 ctags 和 cscope 生成
@@ -79,6 +81,20 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 - ：jumps # 显示跳转列表，按下相应变化即可跳转
 - "*" # 跳转到下个单词
 - "#" # 跳转到上个单词
+
+- jedi python 跳转快捷键
+```shell
+命令 ： h jedi # 查看帮助文档
+命令 ：Pyimport  --> e.g. :Pyimport os shows os.py in VIM
+快捷键：<Ctrl-Space> --> 补全
+快捷键：<leader>d --> 转到定义
+快捷键：<leader>g --> Go to assignment (跳转到赋值)
+快捷键：<leader>s --> Go to stub
+快捷键：<leader>n --> 多少处使用一个name(Show usages of a name).
+快捷键：<leader>r --> 替换名称(Rename variables)
+快捷键：<leader>R --> 不删除替换名称
+快捷键：<K> --> Show pydoc documentation 
+```
 
 # 3 vim-Plug 常用操作
 ```shell
