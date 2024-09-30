@@ -74,6 +74,7 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 - ：jumps # 显示跳转列表，按下相应变化即可跳转
 - "*" # 跳转到下个单词
 - "#" # 跳转到上个单词
+```
 
 - jedi python 跳转快捷键
 ```shell
@@ -86,7 +87,25 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 快捷键：<leader>n --> 多少处使用一个name(Show usages of a name).
 快捷键：<leader>r --> 替换名称(Rename variables)
 快捷键：<leader>R --> 不删除替换名称
-快捷键：<K> --> Show pydoc documentation 
+快捷键：<K> --> Show pydoc documentation
+```
+
+- cscope 跳转指令
+```shell
+'s'   symbol: find all references to the token under cursor (查找函数名、宏、枚举值等出现的地方)
+'g'   global: find global definition(s) of the token under cursor (查找函数、宏、枚举等定义的位置，类似ctags所提供的功能)
+'c'   calls:  find all calls to the function name under cursor (查找调用本函数的函数)
+'t'   text:   find all instances of the text under cursor (查找指定的字符串)
+'e'   egrep:  egrep search for the word under cursor (安装egrep 查找token，但查找速度快)
+'f'   file:   open the filename under cursor (查找并打开文件)
+'i'   includes: find files that include the filename under cursor (查找包含文件名的文件)
+'d'   called: find functions that function under cursor calls
+
+# 使用方法1(命令)
+: cs find g name
+
+# 使用方法2(快捷键)
+<leader>cg
 ```
 
 # 3 vim-Plug 常用操作
