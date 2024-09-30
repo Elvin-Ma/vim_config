@@ -75,7 +75,7 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 
 - 将一个文件视为其它文件类型
 ```shell
-set filetype=cpp
+: set filetype=cpp
 ```
 
 - vim 常用跳转指令
