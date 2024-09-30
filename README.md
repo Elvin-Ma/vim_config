@@ -72,6 +72,12 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 ```shell
 ; + s
 ```
+
+- 将一个文件视为其它文件类型
+```shell
+set filetype=cpp
+```
+
 - vim 常用跳转指令
 ```shell
 - gd # 在当前缓存区内跳转到光标所在标识符的定义位置
@@ -96,6 +102,18 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 快捷键：<leader>r --> 替换名称(Rename variables)
 快捷键：<leader>R --> 不删除替换名称
 快捷键：<K> --> Show pydoc documentation
+```
+
+- ctags 跳转指令
+```shell
+- 命令 ：tag tagname --> 跳转到tagname的定义处，即使它在另一个文件中;
+- 命令 ：tags --> 列出层访问过的tag的列表
+- 快捷键 Ctrl+] --> 取出当前光标下的单词作为tag进行跳转
+- 快捷键 Ctrl+T --> 跳转到前一次的tag处
+- 命令 ：stag name --> 在分裂出的窗口跳转到指定的tag
+- 快捷键 Ctrl + W + ] --> 同上
+- 命令 ：set tags=./tags, ../tags --> 设置多个tags, 会覆盖之前的tags
+- 命令 ：set tag? --> 查看之前设置的tags
 ```
 
 - cscope 跳转指令
