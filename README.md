@@ -288,7 +288,7 @@ nnoremap <F8> : TlistOpen<CR>
 nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
 set tags=./tags;,tags "可以不在当前tag路径下运行
 set autochdir
-set tags +=/root/.vim/projects/base/tags
+" set tags +=/root/.vim/projects/base/tags
 if $CTAGS_DB != ""
     set tags+=$CTAGS_DB
 endif
@@ -311,7 +311,7 @@ if has("cscope")
 endif
 
 noremap <leader>cs :cs find s <C-R>=expand("<cword>")<CR><CR>
-noremap <leader>cg :s find g <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>cg :cs find g <C-R>=expand("<cword>")<CR><CR>
 noremap <leader>cc :cs find c <C-R>=expand("<cword>")<CR><CR>
 noremap <leader>ct :cs find t <C-R>=expand("<cword>")<CR><CR>
 noremap <leader>ce :cs find e <C-R>=expand("<cword>")<CR><CR>
