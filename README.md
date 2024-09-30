@@ -226,6 +226,10 @@ let g:python3_host_prog = '/usr/bin/python3'
 set hlsearch
 highlight search term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
 
+"Restore cursor to file position in previous editing session
+set viminfo='10,\"100,:20,%,n~/.viminfo "记录光标位置
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif "重新打开光标位置不变
+
 " window size ctrl
 nmap <C-j> <C-W>+
 nmap <C-k> <C-W>-
@@ -315,7 +319,7 @@ nnoremap <F8> : TlistOpen<CR>
 nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
 set tags=./tags;,tags "可以不在当前tag路径下运行
 set autochdir
-" set tags +=/root/.vim/projects/base/tags
+"set tags +=/root/.vim/projects/base/tags " default not load
 if $CTAGS_DB != ""
     set tags+=$CTAGS_DB
 endif
@@ -326,12 +330,19 @@ if has("cscope")
   set cst
   set nocsverb
   set cscopetag
+
   " add any database in current directory
   if filereadable("cscope.out")
       cs add cscope.out
   " else add database pointed to by environment
   elseif $CSCOPE_DB != ""
+       "cs add /root/.vim/projects/br_pytorch/cscope.out
+       "cs add /root/.vim/projects/base/cscope.out
       cs add $CSCOPE_DB
+      let cscope_db_list = split($CSCOPE_DB, ":")
+      for cscope_db in cscope_db_list
+        execute 'cs add' cscope_db
+      endfor
   endif
   set csverb
   set cscopeverbose " show msg when any other cscope db added
@@ -364,7 +375,6 @@ noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
 
 " ==================== git blame ===========
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
-
 ```
 
 # 6 参考文献
