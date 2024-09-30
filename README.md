@@ -215,8 +215,8 @@ Plug 'Yggdroot/LeaderF'
 Plug 'bfrg/vim-cpp-modern' "c++ 函数名等会有颜色
 Plug 'zivyangll/git-blame.vim'
 Plug 'jiangmiao/auto-pairs' "括号自动补全
-"Plug 'dense-analysis/ale' "语法检测 --> 会误报
 Plug 'azabiong/vim-highlighter'
+Plug 'davidhalter/jedi-vim' "python 补全和跳转
 call plug#end()
 
 autocmd FileType python let g:autoformatpython_enabled = 1
@@ -288,8 +288,7 @@ nnoremap <F8> : TlistOpen<CR>
 nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
 set tags=./tags;,tags "可以不在当前tag路径下运行
 set autochdir
-set tags +=/root/.vim/tags
-set tags +=/usr/local/lib/python3.8/dist-packages/tags
+set tags +=/root/.vim/projects/base/tags
 if $CTAGS_DB != ""
     set tags+=$CTAGS_DB
 endif
