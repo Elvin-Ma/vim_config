@@ -38,9 +38,17 @@ ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /
 ```
 *注释：tags 用-f 指定生成路径，而具体的文件路径要用绝对路径，否则会找不到* <br>
 
+- cscope 生成c++ 标准库cscope
+```shell
+find /usr/include/c++/ -name '*.h' -o -name '*.hpp' > cscope.files
+find other/path -name *.h >> cscope.files
+
+```
+
 - 快捷的生成方式
 ```shell
 alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ > cscope.files && cscope -Rbq'
+# mv ctags cscope.files cscope.out cscope.in.out cscope.po.out ~/.vim/projects/ # 移动到标准位置
 alias cc_del='rm -rf cscope.*; rm tags'
 ```
 *注释：以上两条可以加到~/.bashrc 里，用以快速生成cscope 和 ctags，注意用 `pwd` 获取绝对路径，这样生成的文件经过copy后照样可以使用* <br>
