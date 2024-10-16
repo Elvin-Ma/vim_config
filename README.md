@@ -392,7 +392,7 @@ noremap <Leader>g7 :call win_gotoid(win_getid(7))<CR>
 noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
 
 " ==================== git blame ===========
-nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+nnoremap <Leader>p :<C-u>call gitblame#echo()<CR>
 ```
 
 # 6 参考文献
