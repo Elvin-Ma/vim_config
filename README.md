@@ -238,6 +238,7 @@ set nu
 set updatetime=200
 set list " set nolist to disable
 set listchars=space:· "空格以点来显示
+filetype plugin on
 
 let mapleader=";"
 let g:python3_host_prog = '/usr/bin/python3'
