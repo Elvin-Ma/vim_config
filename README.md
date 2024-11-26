@@ -20,8 +20,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # ctags + taglist + cscope prepare
 sudo apt-get install -y exuberant-ctags
 sudo apt-get install cscope
-wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_46.zip/download
-unzip download
+# wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_46.zip/download
+# unzip download
 ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
 pip install jedi # install vim-jedi for python
@@ -257,7 +257,7 @@ nmap <C-l> <C-W>>
 
 " plugged ______________
 call plug#begin('~/.vim/plugged')
-
+Plug 'vim-scripts/taglist.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline' "增强 Vim 状态栏的外观和功能
@@ -394,6 +394,10 @@ noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
 
 " ==================== git blame ===========
 nnoremap <Leader>p :<C-u>call gitblame#echo()<CR>
+
+" ==================== tab list ============
+let g:Tlist_File_Fold_Auto_Close=1
+let g:Tlist_Show_One_File=1
 ```
 
 # 6 参考文献
