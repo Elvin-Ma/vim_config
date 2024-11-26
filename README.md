@@ -116,8 +116,26 @@ grep -wlr "index_fill_" | xargs perl -pi -e 's/index_fill_/index_fill_mtn/g'
 - 命令 ：set tag? --> 查看之前设置的tags
 ```
 
-- cscope 跳转指令
+- cscope 相关command指令
 ```shell
+cscope commands:
+add  : Add a new database             (Usage: add file|dir [pre-path] [flags])
+find : Query for a pattern            (Usage: find a|c|d|e|f|g|i|s|t name)
+       a: Find assignments to this symbol
+       c: Find functions calling this function
+       d: Find functions called by this function
+       e: Find this egrep pattern
+       f: Find this file
+       g: Find this definition
+       i: Find files #including this file
+       s: Find this C symbol
+       t: Find this text string
+help : Show this message              (Usage: help)
+kill : Kill a connection              (Usage: kill #)
+reset: Reinit all connections         (Usage: reset)
+show : Show connections               (Usage: show) --> cscope的路径
+
+#======================= 注释==========================
 's'   symbol: find all references to the token under cursor (查找函数名、宏、枚举值等出现的地方)
 'g'   global: find global definition(s) of the token under cursor (查找函数、宏、枚举等定义的位置，类似ctags所提供的功能)
 'c'   calls:  find all calls to the function name under cursor (查找调用本函数的函数)
