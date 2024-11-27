@@ -22,7 +22,7 @@ sudo apt-get install -y exuberant-ctags
 sudo apt-get install cscope
 # wget https://sourceforge.net/projects/vim-taglist/files/vim-taglist/4.6/taglist_46.zip/download
 # unzip download
-ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
+# ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q -f ~/.vim/tags /usr/include /usr/local/include
 
 pip install jedi # install vim-jedi for python
 
