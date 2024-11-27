@@ -47,9 +47,10 @@ find other/path -name *.h >> cscope.files
 
 - 快捷的生成方式
 ```shell
-alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ | grep -v third-party > cscope.files && cscope -Rbq'
-# mv ctags cscope.*  ~/.vim/projects/ # 移动到标准位置
+alias cc_get='ctags -R --c++-kinds=+p --fields=+aiKSz --extra=+q --exclude=build `pwd` && find `pwd` -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" | grep -v /build/ | grep -v third-party > cscope.files && cscope -Rbq && rm -rf ~/.vim/projects/"$(basename $(pwd))" && mkdir -p ~/.vim/projects/"$(basename $(pwd))" && mv tags cscope* ~/.vim/projects/"$(basename $(pwd))"'
 alias cc_del='rm -rf cscope.*; rm tags'
+alias cc_env='export CSCOPE_DB=/root/.vim/projects/"$(basename $(pwd))":$CSCOPE_DB && export CTAGS_DB=/root/.vim/projects/"$(basename $(pwd))"/tags:$CTAGS_DB'
+alias cc_env_reset='unset CSCOPE_DB= && unset CTAGS_DB'
 ```
 *注释：以上两条可以加到~/.bashrc 里，用以快速生成cscope 和 ctags，注意用 `pwd` 获取绝对路径，这样生成的文件经过copy后照样可以使用* <br>
 
