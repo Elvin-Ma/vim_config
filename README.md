@@ -264,9 +264,11 @@ let g:python3_host_prog = '/usr/bin/python3'
 set hlsearch
 highlight search term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
 
+
 "Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo "记录光标位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif "重新打开光标位置不变
+autocmd BufNewFile,BufRead *.cu set filetype=cpp "将cuda文件视为cpp文件
 
 " window size ctrl
 nmap <C-j> <C-W>+
