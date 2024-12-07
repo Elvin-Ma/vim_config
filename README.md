@@ -14,6 +14,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 #git checkout v8.2.0108
 ##./configure --prefix=$HOME/.local --enable-python3interp=yes
 #./configure --enable-python3interp=yes
+# 安装不成功可能是环境依赖没装：apt-get update && apt-get install libncurses5-dev libncursesw5-dev
 #make -j16
 #sudo make install
 
