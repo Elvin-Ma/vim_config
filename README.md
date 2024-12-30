@@ -423,7 +423,18 @@ let g:Tlist_File_Fold_Auto_Close=1
 let g:Tlist_Show_One_File=1
 ```
 
-# 6 参考文献
+# 6 tmux 颜色配置
+- ~/.tmux.conf
+  
+```shell
+set -g default-terminal "xterm-256color"
+set -ga terminal-overrides ',xterm*:smcup@:rmcup@'
+set -g history-limit 10000
+```
+
+- tmux source-file ~/.tmux.conf
+ 
+# 7 参考文献
 - [参考文献1](https://www.linuxmi.com/ubuntu-vim-8-2-python-ide.html)
 - [参考文献2](https://learnku.com/articles/36344)
 - [配置c++环境](https://www.zhihu.com/question/47691414/answer/373700711)
