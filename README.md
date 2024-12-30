@@ -355,9 +355,7 @@ noremap go :<C-U>Leaderf! rg --recall<CR> " ________________
 " search visually selected text literally
 
 
-" ================ ctags+taglist+cscope =====================
-let g:Tlist_Use_Right_Window = 1
-nnoremap <F8> : TlistOpen<CR>
+" ================ ctags+cscope =====================
 nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
 set tags=./tags;,tags "可以不在当前tag路径下运行
 set autochdir
@@ -419,6 +417,8 @@ noremap <Leader>g8 :call win_gotoid(win_getid(8))<CR>
 nnoremap <Leader>p :<C-u>call gitblame#echo()<CR>
 
 " ==================== tab list ============
+let g:Tlist_Use_Right_Window = 1
+nnoremap <F8> : TlistOpen<CR>
 let g:Tlist_File_Fold_Auto_Close=1
 let g:Tlist_Show_One_File=1
 ```
