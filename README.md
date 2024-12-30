@@ -259,6 +259,8 @@ set nu
 set updatetime=200
 set list " set nolist to disable
 set listchars=space:· "空格以点来显示
+set splitright
+nnoremap <silent> <Esc> :nohlsearch<CR>
 filetype plugin on
 
 let mapleader=";"
