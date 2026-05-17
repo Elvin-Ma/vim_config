@@ -13,7 +13,7 @@ set encoding=utf-8
 set nu
 set updatetime=200
 set list " set nolist to disable
-set listchars=space:· "空格以点来显示
+set listchars=space:· "space display as .
 set splitright
 set hlsearch " : noh/nohlsearch to disable
 
@@ -62,7 +62,7 @@ endfunction
 
 set quickfixtextfunc=QfNoFilename
 
-" ================== max wondow and recover ========
+" ================== max window and recover : <leader>m  ========
 function! ToggleMaximizeWindow()
     if exists('t:maximized') && t:maximized
         execute t:restorecmd
